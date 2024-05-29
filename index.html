@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Electron App</title>
+  </head>
+  <body>
+    <button id="get-ssid">Get SSID</button>
+    <button id="start-uploas-speed-test">Speed Test</button>
+    <ul id="wifiList"></ul>
+    <ul id="ip"></ul>
+    <ul id="ping"></ul>
+    <ul id="upload-speed-test-result"></ul>
+    <ul id="download-speed-test-result"></ul>
+    <script>
+      document.getElementById("get-ssid").addEventListener("click", () => {
+        window.electron.getSsid().then((networks) => {
+          const current = networks[0];
+          console.log(current);
+          const wifiList = document.getElementById("wifiList");
+          const li = document.createElement("li");
+          li.textContent = `SSID: ${current.ssid} - ${current.bssid}`;
+          wifiList.appendChild(li);
+        });
+      });
+
+      document
+        .getElementById("start-uploas-speed-test")
+        .addEventListener("click", () => {
+          window.electron.startUploadSpeedTest().then((result) => {
+            const resultContainer = document.querySelector(
+              "#upload-speed-test-result"
+            );
+            resultContainer.innerText = `Velocidad de Subida: ${result} Mbps`;
+          });
+
+          window.electron.startDownloadSpeedTest().then((result) => {
+            const resultContainer = document.querySelector(
+              "#download-speed-test-result"
+            );
+            resultContainer.innerText = `Velocidad de bajada: ${result} Mbps`;
+          });
+
+          window.electron.getIp().then((result) => {
+            const resultContainer = document.querySelector("#ip");
+            resultContainer.innerText = `IP: ${result.query}- ${result.isp} - ${result.country} ${result.regionName}`;
+          });
+
+          window.electron.getPing().then((result) => {
+            const resultContainer = document.querySelector("#ping");
+            resultContainer.innerText = `Ping: ${result} ms`;
+          });
+        });
+    </script>
+  </body>
+</html>

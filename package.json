@@ -1,0 +1,22 @@
+{
+  "name": "electron-eyenet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^30.0.8",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "node-wifi": "^2.0.16",
+    "speedtest-net": "^2.2.0"
+  }
+}
